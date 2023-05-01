@@ -1,0 +1,117 @@
+
+
+ <main id="main" class="main">
+<div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+                  <table class="table table-borderless datatable">
+  <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">address</th>
+        <th scope="col">Phone</th>
+        <th scope="col">payment method</th>
+        <th scope="col">Date</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">view items</th>
+        <th scope="col">cancel</th>
+        
+        <th scope="col">Action</th>
+        <th scope="col">status</th>
+     </tr>
+  </thead>
+  <tbody>
+    {{#each orderlist}}
+    {{#if is_cancelled}}
+    <tr>
+        <th >{{@index}}</th>
+        <td>{{address.[0].firstname}} {{address.[0].lastname}}</td>
+        <td>{{address.[0].address}}</td>
+        <td>{{address.[0].phone}}</td>
+        <td>{{paymentmethod}}</td>
+        <td>{{date}}</td>
+        <td>{{totalprice}}</td>
+        <td><a href="#" style="text-decoration: none;"><button type="button" class="btn btn-primary">view</button></a></td>
+        <td><a href="/admin/cancel?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-danger">cancel</button></a></td>
+        
+         <td></td>
+        <td>cancelled</td>
+    </tr>
+    {{else}}
+    <tr>
+        <th >{{@index}}</th>
+        <td>{{address.[0].firstname}} {{address.[0].lastname}}</td>
+        <td>{{address.[0].address}}</td>
+        <td>{{address.[0].phone}}</td>
+        <td>{{paymentmethod}}</td>
+        <td>{{date}}</td>
+        <td>{{totalprice}}</td>
+        {{#if is_complete}}
+        {{#if can_return}}
+        {{#if return}}
+         <td><a href="/admin/view?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">view</button></a></td>
+        <td></td>
+       
+        <td></td>
+        <td>returned</td>
+        {{else}}
+        <td><a href="/admin/view?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">cancel</button></a></td>
+        <td><a href="/admin/accept?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">YES</button></a><a href="/admin/decline?id={{id}}" style="text-decoration: none;"><button type="button" class="btn btn-danger">NO</button></a></td>
+        
+        <td></td>
+        <td>pending</td>
+        {{/if}}
+        {{else}}
+       {{#if decline}}
+       <td><a href="/admin/view?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">view</button></a></td>
+         <td></td>
+        
+        <td></td>
+        <td>Declined</td>
+        {{else}}
+        <td><a href="/admin/view?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">view</button></a></td>
+         <td></td>
+        
+        <td></td>
+        <td>Delivered</td>
+        {{/if}}
+        {{/if}}
+        {{else}}
+        <td><a href="/admin/view?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">view</button></a></td>
+         <td><a href="/admin/cancel?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-danger">cancel</button></a></td>
+        
+        {{#if shipping}}
+        <td><a href="/admin/complete?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">Delivered</button></a></td>
+        <td>In shipping</td>
+        {{else}}
+        <td><a href="/admin/shipping?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">shipping</button></a></td>
+        <td>In progress</td>
+        {{/if}}
+        {{/if}}
+    </tr>
+    {{/if}}
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+</main>

@@ -1,0 +1,80 @@
+
+<section class="vh-100" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5"> Please Verify now</h3>
+            <form class="row contact_form" action="/verify" method="post" >
+
+            <div class="form-outline mb-4">
+
+               <input type="number" class="form-control" id="password" name="otp" value=""
+                                        placeholder="OTP NUMBER" style="width: 387px;">
+            </div>
+
+            
+            
+
+            <button class="btn btn-primary  btn-block" type="submit">Verify</button>
+                 <div>
+                                        <span class="d-block mobile-text" id="countdown"></span>
+                                    <span class="d-block mobile-text" id="resend"></span>
+                                    </div>
+             {{#if message}}
+                                    <p class="text-success">{{message}}</p>
+                            {{/if}}
+
+        
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+        
+        <script>
+            let timerOn = true;
+console.log("hello")
+function timer(remaining) {
+  var m = Math.floor(remaining / 60);
+  var s = remaining % 60;
+  m = m < 10 ? "0" + m : m;
+  s = s < 10 ? "0" + s : s;
+  document.getElementById("countdown").innerHTML = `Time left: ${m} : ${s}`;
+  remaining -= 1;
+  if (remaining >= 0 && timerOn) {
+    setTimeout(function () {
+      timer(remaining);
+    }, 1000);
+    document.getElementById("resend").innerHTML = `
+    `;
+    return;
+  }
+  if (!timerOn) {
+    return;
+  }
+  document.getElementById("resend").innerHTML = `Don't receive the code? 
+  <span class="font-weight-bold text-color cursor" onclick="timer(60),resenddotp()">Resend
+  </span>`;
+}
+timer(20);
+
+        </script>
+        <script>
+          function  resenddotp(){
+                $.ajax({
+                    url:'/resendotp',
+                    method:'get',
+                    success:(response)=>{
+                        if(response.status){
+                            location.reload()
+                        }
+                    }
+                })
+            }
+        </script>

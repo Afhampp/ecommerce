@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   
+  
+{{#if userheadlink}}
+{{>userheaderlink}}
+{{/if}}
+{{#if adminheadlink}}
+ {{>adminheaderlink}}
+{{/if}}
+
+  </head>
+  <body>
+    {{#if userheader}}
+    {{>user_header}}
+    {{/if}}
+    {{#if adminheader}}
+    {{>admin_header}}
+    {{/if}}
+    {{{body}}}
+    {{#if adminfooter}}
+     {{>adminfooterinfo}}
+  
+    {{/if}}
+    {{#if userfooter}}
+     {{>userfooterinfo}}
+  
+    {{/if}}
+  </body>
+</html>

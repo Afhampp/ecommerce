@@ -1,0 +1,124 @@
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">address</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Date</th>
+        <th scope="col">Total Price</th>
+         <th scope="col">view items</th>
+        <th scope="col">Action</th>
+       
+
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orderlist}}
+        {{#if is_cancelled}}
+          <tr>
+            <th>{{@index}}</th>
+            <td>{{address.0.firstname}} {{address.0.lastname}}</td>
+            <td>{{address.0.address}}</td>
+            <td>{{address.0.phone}}</td>
+            <td>{{date}}</td>
+            <td>{{totalprice}}</td>
+            <td><a
+                href="/viewitem?id={{id}}"
+                style="text-decoration: none;"
+              ><button type="button" class="btn btn-primary">view</button></a></td>
+            <td></td>
+            
+
+            <td>cancelled</td>
+          </tr>
+        {{else}}
+          <tr>
+            <th>{{@index}}</th>
+            <td>{{address.0.firstname}} {{address.0.lastname}}</td>
+            <td>{{address.0.address}}</td>
+            <td>{{address.0.phone}}</td>
+            <td>{{date}}</td>
+            <td>{{totalprice}}</td>
+            {{#if is_complete}}
+              {{#if can_return}}
+                {{#if return}}
+                <td><a
+                      href="/viewitem?id={{id}}"
+                      style="text-decoration: none;"
+                    ><button type="button" class="btn btn-primary">view</button></a></td>
+                  <td></td>
+
+                  
+
+                  <td>Accepted</td>
+                {{else}}
+                <td><a
+                      href="/viewitem?id={{id}}"
+                      style="text-decoration: none;"
+                    ><button type="button" class="btn btn-primary">view</button></a></td>
+                  <td></td>
+
+                  
+
+                  <td>Request Pending</td>
+                {{/if}}
+              {{else}}
+                {{#if decline}}
+                <td><a
+                      href="/viewitem?id={{id}}"
+                      style="text-decoration: none;"
+                    ><button type="button" class="btn btn-primary"></button></a></td>
+                  <td></td>
+
+                  
+
+                  <td>Declined</td>
+
+                {{else}}
+                <td><a
+                      href="/viewitem?id={{id}}"
+                      style="text-decoration: none;"
+                    ><button type="button" class="btn btn-primary">view</button></a></td>
+                  <td><a
+                      href="/returnpro?id={{id}}"
+                      style="text-decoration: none;"
+                    ><button
+                        type="button"
+                        class="btn btn-success"
+                      >return</button></a></td>
+
+                  
+
+                  <td>Delivered</td>
+                {{/if}}
+              {{/if}}
+            {{else}}
+             <td><a
+                  href="/viewitem?id={{id}}"
+                  style="text-decoration: none;"
+                ><button type="button" class="btn btn-primary">view</button></a></td>
+              <td><a
+                  href="/cancelcomplete?id={{id}}"
+                  style="text-decoration: none;"
+                ><button
+                    type="button"
+                    class="btn btn-danger"
+                  >cancel</button></a></td>
+             
+              {{#if shipping}}
+
+                <td>In shipping</td>
+              {{else}}
+
+                <td>In progress</td>
+              {{/if}}
+            {{/if}}
+          </tr>
+        {{/if}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>

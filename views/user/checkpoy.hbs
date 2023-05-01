@@ -1,0 +1,295 @@
+<section class="checkout_area section_padding">
+    <div class="container">
+      <div class="returning_customer">
+        <div class="check_title">
+          <h2>
+            Returning Customer?
+          </h2>
+        </div>
+        <p>
+          If you have shopped with us before, then click down address link to select address you wanted
+        </p>
+        <form class="row contact_form" action="/selectadd" method="get" novalidate="novalidate">
+          
+          <div class="col-md-12 form-group">
+            <button type="submit" value="submit" class="btn_3">
+              SELECT
+            </button>
+          </div>
+        </form>
+      </div>
+      <form id="myFor" method="post">
+      <div class="cupon_area">
+        <div class="check_title">
+          <h2>
+            Have a coupon?
+           
+          </h2>
+        </div>
+        <input type="text" placeholder="Enter coupon code" name="code" />
+        <button onclick="" style="background: none;border: none;"><a class="tp_btn" >Apply Coupon</a></button>
+        <span id="coupen" class="text-danger"></span>
+        <span id="coupenfound" class="text-success"></span>
+      </div>
+      </form>
+      <div class="billing_details">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>Billing Details</h3>
+            {{#if addressvalue}}
+            {{#with addressvalue}}
+            <form onsubmit="return formvalidatation()" class="row contact_form" action="/postaddress" method="post">
+              <div class="col-md-6 form-group p_star">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="first" name="firstname" value="{{firstname}}" required/>
+              
+              </div>
+              
+              <div class="col-md-6 form-group p_star">
+                 <label>Last Name</label>
+                <input type="text" class="form-control" id="last" name="Lastname" value="{{lastname}}" required />
+              
+              </div>
+
+              <div class="col-md-6 form-group p_star">
+                <label>Phone Number</label>
+                <input type="text" class="form-control" id="number" name="phone" value="{{phone}}" required/>
+                <span id="phoneerror" style="color: red;"></span>
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <label>Email Address</label>
+                <input type="text" class="form-control" id="email" name="email" value="{{email}}" required />
+              <span id="emalierror" style="color: red;"></span>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Country</label>
+               <input type="text" class="form-control" id="country" name="country"value="{{country}}" required/>
+               
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>address</label>
+                <input type="text" class="form-control" id="add1" name="address" value="{{address}}" required />
+                
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Town/City</label>
+                <input type="text" class="form-control" id="city" name="town" value="{{town}}" required/>
+                
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>District</label>
+              <input type="text" class="form-control" id="district" name="district" value="{{district}}" required placeholder="district"/>
+                
+              </div>
+              <div class="col-md-12 form-group">
+                <label>Pincode</label>
+                <input type="text" class="form-control" id="zip" name="pin" placeholder="Postcode/ZIP" required value="{{pincode}}" />
+              <span id="pincodeerror" style="color: red;"></span>
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="creat_account">
+                  <button type="submit" class="btn_3">save</button>
+                </div>
+              </div>
+             
+            </form>
+            {{/with}}
+            {{else}}
+             <form class="row contact_form" action="/postaddress" method="post">
+              <div class="col-md-6 form-group p_star">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="first" name="firstname" placeholder="First Name" required />
+              
+              </div>
+              
+              <div class="col-md-6 form-group p_star">
+                 <label>Last Name</label>
+                <input type="text" class="form-control" id="last" name="Lastname"placeholder="Last Name"required />
+              
+              </div>
+
+              <div class="col-md-6 form-group p_star">
+                <label>Phone Number</label>
+                <input type="text" class="form-control" id="number" name="phone" placeholder="Phone Number"required />
+              <span id="phoneerror" style="color: red;"></span>
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <label>Email Address</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Email" required />
+              <span id="emalierror" style="color: red;"></span>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Country</label>
+               <input type="text" class="form-control" id="country" name="country"placeholder="Country"required />
+               
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>address</label>
+                <input type="text" class="form-control" id="add1" name="address" placeholder="Address" required />
+                
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Town/City</label>
+                <input type="text" class="form-control" id="city" name="town" placeholder="TOWN/City"required />
+                
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>District</label>
+              <input type="text" class="form-control" id="district" name="district" placeholder="district" required/>
+                
+              </div>
+              <div class="col-md-12 form-group">
+                <label>Pincode</label>
+                <input type="text" class="form-control" id="zip" name="pin" placeholder="Postcode/ZIP" required />
+              <span id="pincodeerror" style="color: red;"></span>
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="creat_account">
+                  <button type="submit" class="btn_3">save</button>
+                </div>
+              </div>
+             
+            </form>
+            {{/if}}
+          </div>
+          <div class="col-lg-4">
+            <div class="order_box">
+              <h2>Your Order</h2>
+              <ul class="list">
+                <li>
+                  <a href="#">Product
+                    <span>Total</span>
+                  </a>
+                </li>
+                {{#each list}}
+                <li>
+                  <a href="#">{{name}}
+                    <span class="middle">x {{quantitypro}}</span>
+                    <span class="last">{{tprice}}</span>
+                  </a>
+                </li>
+                {{/each}}
+              </ul>
+              <ul class="list list_2">
+                <li>
+                 
+                  <a href="#">Subtotal
+                    <span>{{cartvtotal.totalprice}}</span>
+                  </a>
+                  
+                </li>
+                <li>
+                  <a href="#">Shipping
+                    <span>Flat rate: $50.00</span>
+                  </a>
+                </li>
+                {{#with listcoupen}}
+                {{#if active}}
+                 <li>
+                  <a href="#">Coupen
+                    <span class="text-danger">{{discount}}</span>
+                  </a>
+                </li>
+                {{/if}}
+                {{/with}}
+                <li>
+                   <li>
+                  <a href="#">wallet
+                    <span >{{wallet}}</span>
+                  </a>
+                </li>
+                 <li>
+                  <a href="#">new wallet
+                    <span class="text-danger">{{newwallet}}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Total
+                    <span>{{Total}}</span>
+                  </a>
+                  
+                </li>
+              </ul>
+              <form id="myForm" method="post">
+              <div class="payment_item">
+                <div class="radion_btn">
+                  <input type="radio" id="f-option5" name="radio" value="COD" />
+                  <label for="f-option5">Cash On Delivery</label>
+                  <div class="check"></div>
+                </div>
+                <p>
+                  Please send a check to Store Name, Store Street, Store Town,
+                  Store State / County, Store Postcode.
+                </p>
+              </div>
+              <div class="payment_item active">
+                <div class="radion_btn">
+                  <input type="radio" id="f-option6" name="radio"  value="paypal"/>
+                  <label for="f-option6">Paypal </label>
+                  <img src="img/product/single-product/card.jpg" alt="" />
+                  <div class="check"></div>
+                </div>
+                <p>
+                  Please send a check to Store Name, Store Street, Store Town,
+                  Store State / County, Store Postcode.
+                </p>
+              </div>
+              <div class="creat_account">
+                <input type="checkbox" id="f-option4" name="selector" />
+                <label for="f-option4">I’ve read and accept the </label>
+                <a href="#">terms & conditions*</a>
+              </div>
+              <div>
+              <button type="submit" style="border: none"><a class="btn_3" >Proceed payment</a></button>
+              </div>
+              <span id="error" class="text-danger"></span>
+              <span id="adress" class="text-danger"></span>
+          
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<script>
+
+const email=document.getElementById("email")
+const phone=document.getElementById("number")
+const password=document.getElementById("zip")
+
+
+
+const emailerror=document.getElementById("emalierror")
+const phoneerror=document.getElementById("phoneerror")
+const passworderror=document.getElementById("pincodeerror")
+
+
+const emailregex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.com$/;
+
+
+function formvalidatation(){
+
+   
+    
+    if(emailregex.test(email.value)==false){
+        console.log(".com")
+        emailerror.innerHTML="Invalid email"
+        return false
+    }
+    else if(phone.value.length<10){
+        console.log("lenght indo")
+        phoneerror.innerHTML="required 10 digit number"
+        return false
+    }
+    else if(zip.value===""|| zip.value===null){
+        console.log("zip kali anno")
+        pincodeerror.innerHTML="zip required"
+        return false
+    }
+  
+   
+    return true
+}
+
+</script>

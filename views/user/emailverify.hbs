@@ -1,0 +1,31 @@
+
+        <div class="container" style="display: flex;justify-content: center;padding-top: 105px;">
+            <div class="row" style="border: 1px solid #B08EAD; border-radius: 10px;">
+                <div class="col-lg-12 col-md-12">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 style="font-size: 17px;line-height: 3.3;">
+                                Please Enter your Email</h3>
+                            <form class="row contact_form" action="/postemail" method="post" >
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="email" name="email" 
+                                        placeholder="Email">
+								
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
+                                    </div>
+                                    <button type="submit" value="submit" class="btn_3">
+                                        Enter
+                                    </button>
+                                    {{#if message}}
+                                    <p class="text-danger">{{message}}</p>
+                                    {{/if}}
+                                
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

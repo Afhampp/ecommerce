@@ -1,0 +1,63 @@
+
+
+ <main id="main" class="main">
+ <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+                  <table class="table table-bordered ">
+  <thead>
+    <tr>
+        <th scope="col">Sl.NO</th>
+        <th scope="col">Coupen Code</th>
+        <th scope="col">minimum price</th>
+        <th scope="col">Expire Date</th>
+        <th scope="col">Discount</th>
+        <th scope="col">Action</th>
+        <th scope="col">status</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+     </tr>
+  </thead>
+  <tbody>
+   {{#each added}}
+
+     <tr>
+        <th >{{inc @index}}</th>
+        <td>{{coupencode}}</td>
+        <td>{{min}}</td>
+        <td>{{to}}</td>
+        <td>{{discount}}</td>
+       {{#if active}}
+        <td><a href="/admin/deactive?id={{_id}}" style="text-decoration: none;">Deactivate</a></td>
+       <td>active</td>
+       {{else}}
+       <td><a href="/admin/active?id={{_id}}" style="text-decoration: none;">Activate</a></td>
+       <td>expire</td>
+       {{/if}}
+        <td><a href="/admin/editcoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">edit</button></a></td>
+         <td><a href="/admin/deletecoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">delete</button></a></td>
+    </tr>
+   {{/each}}
+  </tbody>
+</table>
+</div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+</main>

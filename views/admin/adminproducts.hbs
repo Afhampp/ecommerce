@@ -1,0 +1,111 @@
+  <main id="main" class="main">
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          
+        </div>
+      </div>
+     
+      <div class="col-lg-8">
+         <form action="/admin/postproduct" method="post" enctype="multipart/form-data">
+        <div class="card mb-4">
+          <div class="card-body">
+              
+            <div class="row">
+             
+              <div class="col-sm-3">
+                <p class="mb-0">product name</p>
+              </div>
+              <div class="col-sm-9">
+               <input type="text" name="name">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Brand</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="text" name="brand">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Price</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" name="price">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="text" name="description">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Quantity</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="number" name="quantity">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Catogeries</p>
+              </div>
+              <div class="col-sm-9">
+                 <select class="form-select"  name="categories" arial-label="Default select example">
+                 <option>select categegory</option>
+                 {{#each categoryData}}
+                 <option >{{categories}}</option>
+                 {{/each}}
+                </select> 
+              </div>
+            </div>
+            <hr>
+          
+              <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Image</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="file" multiple class="form-control" name="file">
+              </div>
+            </div>
+           
+          </div>
+        </div>
+       <button  type="submit" class="btn btn-primary">Add</button>
+       </form>
+      </div>
+     
+    </div>
+  </div>
+</section>
+</main>

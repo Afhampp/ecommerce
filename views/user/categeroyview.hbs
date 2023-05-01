@@ -1,0 +1,141 @@
+
+
+<!-- breadcrumb part start-->
+    <section class="breadcrumb_part">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <h2>product list</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb part end-->
+
+<section class="product_list section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product_sidebar">
+                        <div class="single_sedebar">
+                          <form id="search-form">
+  <input type="text" name="search" placeholder="Search keyword">
+  <i class="fa fa-search" id="search-icon"></i>
+</form>
+                        </div>
+                        <div class="single_sedebar">
+                            <div class="select_option">
+                                <div class="select_option_list">Category <i class="right fas fa-caret-down"></i> </div>
+                                <div class="select_option_dropdown">
+                                    {{#each categerioslist}}
+                                    {{#unless is_list}}
+                                    <p><a href="/categerywise?id={{_id}}">{{categories}}</a></p>
+                                   {{/unless}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_sedebar">
+                            <div class="select_option">
+                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>
+                                <div class="select_option_dropdown">
+                                    <p><a href="#">Type 1</a></p>
+                                    <p><a href="#">Type 2</a></p>
+                                    <p><a href="#">Type 3</a></p>
+                                    <p><a href="#">Type 4</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" style="background-color: #F4EDF2">
+                    <div class="product_list">
+                        <div class="row">
+                          <div class="container py-5">
+    <div class="row">
+                 {{#each cat}}
+                            {{#unless is_listed}}
+                
+  
+      <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+        <div class="card">
+          <div class="d-flex justify-content-between p-3">
+            <p class="lead mb-0"></p>
+            <div
+              >
+              <p class="text-white mb-0 small"></p>
+            </div>
+          </div>
+          <img src="/images/uploads/{{images.[0]}}"
+            class="card-img-top" alt="Laptop"  style="height: 120px;"/>
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <p class="small"><a href="#!" class="text-muted">{{brand}}</a></p>
+              <p class="small text-danger"></p>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="mb-0">{{name}}</h5>
+              <h5 class="text-dark mb-0">{{price}}</h5>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <p class="text-muted mb-0">Available: <span class="fw-bold">6</span></p>
+              <div class="ms-auto text-warning">
+                <a  href="/singleview?id={{_id}}"><i class="fa-sharp fa-solid fa-eye" ></i></a>
+                <button onclick="addtocart('{{_id}}')" style="border: none;background: none;color: #007bff"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button onclick="updatecolour('{{_id}}')" id="{{_id}}" style="border: none;background: none;color: #007bff"><i class="fa-sharp fa-solid fa-heart"></i></button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      
+    
+    {{/unless}}
+                {{/each}}
+                </div>
+  </div>
+{{!--                        --}}
+                        </div>
+                      <nav aria-label="Page navigation example">
+                          <ul class="pagination pg-blue">
+                            {{#each a}}
+                            <li class="page-item"><a class="page-link" href="?page={{inc @ index}}">{{inc @ index}}</a></li>
+                          {{/each}}
+                            
+                          </ul>
+                        </nav>
+                    </div>
+                </div>
+              
+               
+                
+            </div>
+        </div>
+    </section>
+    <!-- product list part end-->
+    
+   
+<script>
+  // Get references to the form and the search icon
+  const searchForm = document.getElementById('search-form');
+  const searchIcon = document.getElementById('search-icon');
+
+  // Add a click event listener to the search icon
+  searchIcon.addEventListener('click', function(event) {
+    // Prevent the default action of clicking on a link or button
+    event.preventDefault();
+
+    // Submit the search form
+    searchForm.submit();
+  });
+</script>
+
+
+
+

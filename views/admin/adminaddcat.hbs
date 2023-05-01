@@ -1,0 +1,20 @@
+
+  <main id="main" class="main">
+<div style="    display: flex;justify-content: center;height: 12rem ;align-items: center;">
+<form action="/admin/add" method="post" style="width: 38rem;">
+    <div class="row">
+    <div class="col-md-9">
+   <input class="form-control" name="name" type="text" aria-label="default input example">
+   </div>
+   <div class="col-md-3">
+    <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+    </div>
+    {{#if message}}
+    <p class="text-danger">{{message}}</p>
+     {{/if}}
+</form>
+
+</div>
+</main>
+

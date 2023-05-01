@@ -1,0 +1,107 @@
+ <div class="container">
+   
+    <div class="row" style="justify-content: space-between;">
+        {{#each address}}
+      <div class="col-lg-5">
+         <form action="/selectone" method="post">
+        <div class="card mb-4"style="width: 33rem;">
+          <div class="card-body">
+              
+            <div class="row">
+             
+              <div class="col-sm-3">
+                <p class="mb-0">First name:</p>
+              </div>
+              <div class="col-sm-9">
+              <input type="text" name="firstname" value="{{firstName}}" readonly>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Last name</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="lastname" value="{{LastName}}" readonly>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                  
+                <p class="mb-0">Phone number</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="phone" value="{{phonenumber}}" readonly>
+               
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email address</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="email" value="{{emailaddress}}" readonly>
+
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">country</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="country" value="{{country}}" readonly>
+                
+              </div>
+            </div>
+            <hr>
+              <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="address" value="{{addressn}}" readonly>
+              </div>
+            </div>
+            <hr>  <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Town/City</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="town" value="{{town}}" readonly>
+             
+              </div>
+            </div>
+            <hr>  <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">District</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="district" value="{{district}}" readonly>
+              </div>
+            </div>
+            <hr>  <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Pincode</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="pincode" value="{{pincode}}" readonly>
+              </div>
+            </div>
+            <hr>
+             <button  type="submit" class="btn" style="color: white;background: #B08EAD;">SELECT</button>
+
+           
+          </div>
+        </div>
+      
+       </form>
+      </div>
+     {{/each}}
+    </div>  
+    </div>
+
+
+</div>

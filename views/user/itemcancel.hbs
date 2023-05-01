@@ -1,0 +1,48 @@
+<div class="container">
+<table class="table table-bordered">
+ <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Productname</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">price</th>
+     </tr>
+  </thead>
+  <tbody>
+    {{#each x}}
+    {{#if productinfo.cancelitem}}
+    <tr>
+        <th >{{@index}}</th>
+        <td>{{productinfo.name}}</td>
+        <td>{{productinfo.quantitypro}}</td>
+        <td>{{productinfo.tprice}}</td>
+
+      
+        
+    </tr>
+    {{else}}
+     <tr>
+        <th >{{@index}}</th>
+        <td>{{productinfo.name}}</td>
+        <td>{{productinfo.quantitypro}}</td>
+        <td>{{productinfo.tprice}}</td>
+        {{#if is_complete}}
+        {{#if can_return}}
+      
+        {{else}}
+        
+        {{/if}}
+        {{else}}
+        {{#if shipping}}
+      
+         {{else}}
+    
+         {{/if}}
+        {{/if}}
+        
+    </tr>
+    {{/if}}
+   {{/each}}
+  </tbody>
+</table>
+</div>

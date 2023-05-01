@@ -1,0 +1,125 @@
+  <main id="main" class="main">
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          
+        </div>
+      </div>
+     
+      <div class="col-lg-8">
+         <form onsubmit="return checker()" action="/admin/postcoupen" method="post">
+        <div class="card mb-4">
+          <div class="card-body">
+             <hr> 
+            <div class="row">
+             
+              <div class="col-sm-3">
+                <p class="mb-0">Coupean code</p>
+              </div>
+              <div class="col-sm-9">
+               <input type="text" name="code" required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                 <label >min price:</label>
+              </div>
+              <div class="col-sm-9">
+                  <input type="number"  name="min" id="min" required>
+                  <span class="text-danger" id="minerror"></span>
+              </div>
+            </div>
+           
+            
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="date-input">Choose Exoire date:</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="date" id="date-input" name="to" required>
+              </div>
+            </div>
+            <hr>
+           <div class="row">
+             
+              <div class="col-sm-3">
+                <p class="mb-0">Discount</p>
+              </div>
+              <div class="col-sm-9">
+               <input type="number" name="discount" id="discount" required>
+                <span class="text-danger" id="diserror"></span>
+              </div>
+            </div>
+            <hr>
+            
+            
+           
+          
+           
+          </div>
+        </div>
+       <button  type="submit" class="btn btn-primary">Add</button>
+       </form>
+      </div>
+     
+    </div>
+  </div>
+</section>
+</main>
+<script>
+
+const min=document.getElementById("min")
+const discount=document.getElementById("discount")
+
+
+
+
+const minerror=document.getElementById("minerror")
+const diserror=document.getElementById("diserror")
+
+
+
+
+
+
+function checker(){
+
+   
+    
+   
+    if(min.value<0){
+        console.log("kerii")
+        minerror.innerHTML="cant be less than zero"
+        return false
+    }
+    else if(discount.value<0){
+       
+        diserror.innerHTML="cant be less than zero"
+        return false
+    }
+  
+   
+    return true
+}
+
+</script>

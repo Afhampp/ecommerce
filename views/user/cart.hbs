@@ -1,0 +1,97 @@
+<section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+                <th scope="col">delete</th>
+              </tr>
+            </thead>
+           
+            <tbody>
+              {{#each cartlist}}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      <img src="/images/uploads/{{images.[0]}}" alt="" style="width: 5rem;height: 5rem;" />
+                    </div>
+                  </div>
+                   <span class="text-danger" id="{{_id}}k"></span>
+                </td>
+                <td>
+                  <h5>{{price}}</h5>
+                </td>
+                 <td>
+                 <button class="btn-minus" onclick="updateQuantity('decrement', '{{_id}}','{{stock}}')"><i class="fa-solid fa-minus"></i></button>
+                  <span class="quantity" data-id="{{_id}}">{{quantitypro}}</span>
+                  <button class="btn-plus" onclick="updateQuantity('increment', '{{_id}}','{{stock}}')"><i class="fa-solid fa-plus"></i></button>
+                </td>
+                <td>
+                  <h5 id="{{_id}}">{{tprice}}</h5>
+                </td>
+                  <td>
+                   <p><button onclick="deletecart('{{_id}}')" style="border: none;"><i class="fa-sharp fa-solid fa-rectangle-xmark"></i></button></p>
+                </td>
+              </tr>
+              {{/each}}
+              <tr class="bottom_button">
+                <td>
+                  <a class="btn_1">Update Cart</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="cupon_text float-right">
+                    <a class="btn_1" href="#">Close Coupon</a>
+                  </div>
+                </td>
+              </tr>
+             
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h5>Subtotal</h5>
+                </td>
+                <td>
+                  <h5 id="totalprice">{{totalPrice}}</h5>
+                </td>
+              
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="checkout_btn_inner float-right">
+            <a class="btn_1" href="/productlist">Continue Shopping</a>
+            <a class="btn_1 checkout_btn_1" href="/getcheckout">Proceed to checkout</a>
+            {{#with checkker}}
+            {{#if outstock}}
+            <p class="text-danger">Out of stock</p>
+            {{/if}}
+            {{/with}}
+          </div>
+        </div>
+      </div>
+  </section>
+ <script>
+  function updateQuantity(operation, productId,stock) {
+    const quantityElem = document.querySelector(`.quantity[data-id="${productId}"]`);
+    let quantity = parseInt(quantityElem.innerText);
+
+    if (operation === 'increment') {
+      quantity++;
+    } else if (operation === 'decrement' && quantity > 1) {
+      quantity--;
+    }
+
+    updateQuantityAjax(quantity, productId,stock);
+    quantityElem.innerText = quantity;
+  }
+
+</script>

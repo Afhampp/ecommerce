@@ -1,0 +1,161 @@
+  <main id="main" class="main">
+<section style="background-color: #eee;">
+  <div class="container py-5">
+  
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          
+        </div>
+      </div>
+     
+      <div class="col-lg-8">
+          {{#with editproduct}}
+         <form action="/admin/editproduct?id={{_id}}" method="post" enctype="multipart/form-data">
+        <div class="card mb-4">
+          <div class="card-body">
+              <hr>
+            <div class="row">
+             
+              <div class="col-sm-3">
+                <p class="mb-0">product name</p>
+              </div>
+              <div class="col-sm-9">
+               <input type="text" name="name" value="{{name}}">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Brand</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="text" name="brand"value="{{brand}}">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Price</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" name="price" value="{{price}}">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="text" name="description"value="{{description}}">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Quantity</p>
+              </div>
+              <div class="col-sm-9">
+                 <input type="number" name="quantity" value="{{quantity}}">
+              </div>
+            </div>
+            <hr>
+             <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">categerios</p>
+              </div>
+              <div class="col-sm-9">
+            <input type="text" name="categerioes" value="{{categories.categories}}">     
+              </div>
+            </div>
+            <hr>
+          
+              <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Image</p>
+              </div>
+              <div class="col-sm-9" style="height: 124px;">
+                <img src="/images/uploads/{{images.[0]}}" alt="" style="height: 73%; width: 15%;" >
+                <img src="/images/uploads/{{images.[1]}}" alt="" style="height: 73%; width: 15%;">
+                 <img src="/images/uploads/{{images.[2]}}" alt="" style="height: 73%; width: 15%;" >
+              </div>
+            </div>
+            
+              
+            
+               
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <input type="file" multiple name="file" style="width: 110px"  id="fileInput" style="opacity: 0;">
+              </div>
+              <div class="col-sm-9" style="height: 124px;">
+               <button type="button" onclick="deleteimage('{{_id}}','{{images.[0]}}')">delete</button>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+       <button  type="submit" class="btn btn-primary">Edit</button>
+              </div>
+       </form>
+       {{/with}}
+      </div>
+     
+    </div>
+  </div>
+</section>
+</main>
+<script>
+  function deleteimage( productId,image) {
+    $.ajax({
+      url: '/admin/deleteimage',
+      data: {
+        productId,
+         image,
+        
+      },
+      method: 'delete',
+      success: (response) => {
+        console.log(response.status);
+        if (response.status) {
+         location.reload() 
+        }
+        
+      }
+    })
+  }
+</script>
+{{!-- <script>
+$(function() {
+  // Listen for the change event on the file input field
+  $('#fileInput').on('change', function() {
+    // Get the selected file(s)
+    var files = $(this).get(0).files;
+
+    // Create a new FormData object to store the file(s)
+    var formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      formData.append('file[]', files[i]);
+    }
+
+    // Send an AJAX request to the server
+    $.ajax({
+      url: '/addimage',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        console.log(response);
+      }
+    });
+  });
+});
+</script> --}}

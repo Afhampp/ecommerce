@@ -1,0 +1,58 @@
+  <main id="main" class="main">
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          
+        </div>
+      </div>
+     
+      <div class="col-lg-8">
+         <form action="/admin/posteditbanner?id={{findedit._id}}" method="post" enctype="multipart/form-data">
+        <div class="card mb-4">
+          <div class="card-body">
+              
+            
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Image</p>
+              </div>
+              <div class="col-sm-9">
+                <img src="/images/uploads/{{findedit.images}}" style="height: 53px;width: 51px;">
+              </div>
+            </div>
+           <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <input type="file" class="form-control" name="file" style="width: 112px;">
+              </div>
+            </div>
+           <hr>
+          </div>
+        </div>
+       <button  type="submit" class="btn btn-primary">Add</button>
+       </form>
+      </div>
+     
+    </div>
+  </div>
+</section>
+</main>
