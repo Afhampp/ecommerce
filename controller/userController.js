@@ -1023,7 +1023,7 @@ const payment = async (req, res) => {
     res.render("error");
   }
 };
-hello
+
 const paymentverify = async (req, res) => {
   try {
     const crypto = require("crypto");
