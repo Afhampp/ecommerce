@@ -11,4 +11,4 @@ const bannerSchema=mongoose.Schema({
     },
  
 })
-module.exports=mongoose.model('bannercollection',bannerSchema)
+module.exports=mongoose.model('bannercollections',bannerSchema)
