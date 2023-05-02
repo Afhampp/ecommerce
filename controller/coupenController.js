@@ -13,7 +13,6 @@ const coupenpage=async(req,res)=>{
         res.render('admin/coupen',{adminheadlink:true,adminheader:true,added,adminfooter:true})     
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -24,7 +23,6 @@ const getaddpage=async(req,res)=>{
         res.render('admin/addcoupen',{adminheadlink:true,adminheader:true,adminfooter:true})     
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -41,7 +39,6 @@ const postcoupen=async(req,res)=>{
           
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -63,7 +60,6 @@ const activate=async(req,res)=>{
        }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -75,7 +71,6 @@ const deactivate=async(req,res)=>{
        res.redirect('/admin/getcoupen') 
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -87,7 +82,6 @@ const geteditcoupen=async(req,res)=>{
        res.render('admin/editcoupen',{adminheadlink:true,adminheader:true,editlist,adminfooter:true})
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -110,7 +104,6 @@ const updatecoupean=async(req,res)=>{
         }   
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -121,7 +114,6 @@ const deletecoupen=async(req,res)=>{
        res.redirect('/admin/getcoupen')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }

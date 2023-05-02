@@ -14,7 +14,6 @@ const getbannertable=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -25,7 +24,6 @@ const geteditbanner=async(req,res)=>{
         res.render('admin/editbanner',{adminheadlink:true,adminheader:true,findedit,adminfooter:true}) 
         }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -46,7 +44,6 @@ const posteditbanner=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -63,7 +60,6 @@ const viewbanner=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -77,7 +73,6 @@ const cancelviewbanner=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -92,7 +87,6 @@ const postaddbanner=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }

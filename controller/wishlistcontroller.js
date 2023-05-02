@@ -21,7 +21,6 @@ const getwishlist = async (req, res) => {
       
     }
     catch (error) {
-      console.log(error);
       res.render("error");
     }
   }
@@ -58,7 +57,6 @@ const getwishlist = async (req, res) => {
          
       }
       catch(error){
-          console.log(error);
           res.render("error");
       }
   }
@@ -78,7 +76,6 @@ const getwishlist = async (req, res) => {
   }
 }
     catch (error) {
-      console.log(error);
       res.render("error");
     }
   }

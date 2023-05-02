@@ -12,7 +12,6 @@ const getadminlogin = (req, res) => {
   try {
     res.render("admin/adminlogin");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -34,7 +33,6 @@ const postadmin = async (req, res) => {
       res.render("admin/adminlogin", { emailmessage: "Invalid email" });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -96,7 +94,6 @@ const dashboard = async (req, res) => {
     }
     
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -108,7 +105,6 @@ const blockuser = async (req, res) => {
       res.redirect("/admin/table");
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -123,7 +119,6 @@ const unblockuser = async (req, res) => {
       res.redirect("/admin/table");
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -139,7 +134,6 @@ const tabledata = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -149,7 +143,6 @@ const getlogout = (req, res) => {
     req.session.admin_id = false;
     res.redirect("/admin");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };

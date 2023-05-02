@@ -21,7 +21,6 @@ const getorder=async(req,res)=>{
         res.render('admin/adminorder',{adminheadlink:true,adminheader:true,orderlist,adminfooter:true})
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -49,7 +48,6 @@ const getorderitem=async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -82,7 +80,6 @@ const cancelled=async(req,res)=>{
         res.redirect('/admin/getorderpage')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -110,7 +107,6 @@ const cancelleditem=async(req,res)=>{
           res.redirect('/admin/view')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -122,7 +118,6 @@ const complete=async(req,res)=>{
         res.redirect('/admin/getorderpage')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -135,7 +130,6 @@ const shipping=async(req,res)=>{
         res.redirect('/admin/getorderpage')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -165,7 +159,6 @@ const accpetreturn=async(req,res)=>{
         res.redirect('/admin/getorderpage')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -179,7 +172,6 @@ const decline=async(req,res)=>{
         res.redirect('/admin/getorderpage')
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }

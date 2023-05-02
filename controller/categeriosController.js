@@ -9,7 +9,6 @@ const getcategories=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -20,7 +19,6 @@ const showadd=(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -41,7 +39,6 @@ const addcategories=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -56,7 +53,6 @@ const uploadcat=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -71,7 +67,6 @@ const editcat=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -86,7 +81,6 @@ const deletecat=async(req,res)=>{
         
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -99,7 +93,6 @@ const list=async (req,res)=>{
         }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -112,7 +105,6 @@ const unlist=async (req,res)=>{
         }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }

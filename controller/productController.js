@@ -10,7 +10,6 @@ const addproduct=async(req,res)=>{
         res.render('admin/adminproducts',{adminheadlink:true,adminheader:true,categoryData,adminfooter:true})
     }
     catch(error){
-        console.log(error);
         res.render("error");
         
     }
@@ -33,7 +32,6 @@ const postproduct=async(req,res)=>{
           res.redirect('/admin/showproduct')
 }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -47,7 +45,6 @@ const getproduct=async(req,res)=>{
         res.render('admin/adminshowproduct',{adminheadlink:true,adminheader:true,showproduct,adminfooter:true})
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -62,7 +59,6 @@ const editproductpage=async(req,res)=>{
        }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -119,7 +115,6 @@ const editproduct=async(req,res)=>{
   
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -131,7 +126,6 @@ const productdelete=async(req,res)=>{
        }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -144,7 +138,6 @@ const list=async (req,res)=>{
         }
     }
     catch(error){
-        console.log(error);
         res.render("error");
         
     }
@@ -158,7 +151,6 @@ const unlist=async (req,res)=>{
         }
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
@@ -174,7 +166,7 @@ const imagedelete=async (req,res)=>{
        
     }
     catch(error){
-        console.log(error);
+   
         res.render("error");
     }
 }
@@ -191,7 +183,6 @@ const addimage=async (req,res)=>{
        
     }
     catch(error){
-        console.log(error);
         res.render("error");
     }
 }
