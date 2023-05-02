@@ -25,7 +25,6 @@ const securedPassword = async (password) => {
     const hashpassword = await bcrypt.hash(password, 10);
     return hashpassword;
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -48,24 +47,23 @@ const sendVerification = (name, email, otpa) => {
       from: "rahulpp12354@gmail.com",
       to: email,
       subject: "for verification mail",
-      html: "<p>Hii," + name + ",here is your otp" + otpa + "</p>",
+      html: "<p>Hii," + name + ",here is your otp " + otpa + "</p>",
     };
     transporter.sendMail(mailOption, function (error, info) {
       if (error) {
-        console.log(error);
+  console.log(error)
       } else {
         console.log("email send", info.response);
       }
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
 //----------------------------to send email OTP end----------------------------
 
 //----------------------------to send email for forgetpassword----------------------------
-const sendpasswordverification = (email, userid) => {
+const sendpasswordverification = (email,otp) => {
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -82,19 +80,18 @@ const sendpasswordverification = (email, userid) => {
       to: email,
       subject: "for verification mail",
       html:
-        '<p>click here to change password "http://localhost:3000/verify?id=' +
-        userid +
+        '<p>here is the otp for email change' +
+        otp +
         '"</p>',
     };
     transporter.sendMail(mailOption, function (error, info) {
       if (error) {
-        console.log(error);
+  console.log(error)
       } else {
         console.log("email send", info.response);
       }
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -104,16 +101,17 @@ const sendpasswordverification = (email, userid) => {
 //-----------------------to get login page---------------------------
 const getuserlogin = (req, res) => {
   try {
+    req.session.otp=false
     res.render("user/userlogin", { userheadlink: true });
   } catch (error) {
-    console.log(error);
+    res.render("error");
   }
 };
 const postlogin = async (req, res) => {
   try {
-    console.log(req.body.email);
+    
     const logindata = await userdb.findOne({ email: req.body.email });
-    console.log(logindata.is_blocked);
+    console.log(logindata.password)
     if (logindata) {
       const passlogin = await bcrypt.compare(
         req.body.password,
@@ -124,7 +122,6 @@ const postlogin = async (req, res) => {
           _id: logindata._id,
           is_blocked: false,
         });
-        console.log(blockeded);
         if (blockeded) {
           req.session.user_id = logindata._id;
           req.session.name = logindata.name;
@@ -154,7 +151,6 @@ const postlogin = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -165,18 +161,20 @@ const getemail = (req, res) => {
   try {
     res.render("user/emailverify", { userheadlink: true });
   } catch (error) {
-    console.log(error);
+    res.render("error");
   }
 };
 const postemail = async (req, res) => {
   try {
     const email = req.body.email;
-    console.log(email);
+    req.session.email=email
     const userdetails = await userdb.findOne({ email: email });
-    console.log(userdetails);
+
     if (userdetails) {
-      sendpasswordverification(email, userdetails._id);
-      res.redirect("/userlogin");
+      const otpa = otp.otpgen();
+      req.session.otp = otpa;
+      sendpasswordverification(email,otpa);
+      res.redirect("/forgetgetotp");
     } else {
       res.render("user/emailverify", {
         userheadlink: true,
@@ -184,16 +182,41 @@ const postemail = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
-const getpassword = (req, res) => {
+const forgetgetotp = async (req, res) => {
   try {
-    const id = req.query.id;
+    res.render("user/forgetotp", { userheadlink: true});
+  } catch (error) {
+    res.render("error");
+  }
+};
+const postforgetotp=async (req, res) => {
+  try {
+      const x = req.body.otp;
+    const y = req.session.otp;
+    if (x == y) {
+
+      res.redirect("/verifypass");
+    } else {
+      res.render("user/forgetotp", { userheadlink: true, message: "Wrong OTP" });
+    }
+
+  
+    
+  } catch (error) {
+    res.render("error");
+  }
+};
+const getpassword = async(req, res) => {
+  try {
+    const email=req.session.email
+    const findid=await userdb.findOne({email:email})
+    const id =findid._id ;
     res.render("user/confirmpass", { userheadlink: true, id });
   } catch (error) {
-    console.log(error);
+    res.render("error");
   }
 };
 const postconfirm = async (req, res) => {
@@ -207,7 +230,8 @@ const postconfirm = async (req, res) => {
         { _id: id },
         { $set: { password: hashpassword } }
       );
-      res.render("user/paymentcomplete");
+      req.session.email=false
+      res.redirect('/userlogin')
     } else {
       res.render("user/confirmpass", {
         userheadlink: true,
@@ -215,7 +239,6 @@ const postconfirm = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -225,7 +248,7 @@ const getsignup = (req, res) => {
   try {
     res.render("user/usersignup", { userheadlink: true });
   } catch (error) {
-    console.log(error);
+    res.render("error");
   }
 };
 
@@ -243,13 +266,11 @@ const postsignup = async (req, res) => {
     } else {
       req.session.user = req.body;
       const otpa = otp.otpgen();
-      console.log(otpa);
       req.session.otp = otpa;
       sendVerification(req.body.name, req.body.email, otpa);
-      res.redirect("/getotp");
+      res.redirect("/forgetgetotp");
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -260,7 +281,6 @@ const getotp = async (req, res) => {
   try {
     res.render("user/otp", { userheadlink: true });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -272,11 +292,9 @@ const resendotp = (req, res) => {
     const name = data.name;
     const otpa = otp.otpgen();
     req.session.otp = otpa;
-    console.log(otpa);
     sendVerification(name, email, otpa);
     res.json({ status: true });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -286,7 +304,7 @@ const resendotp = (req, res) => {
 
 const otpverify = async (req, res) => {
   try {
-    const x = req.body.otp;
+      const x = req.body.otp;
     const y = req.session.otp;
     const z = req.session.user;
     if (x == y) {
@@ -295,8 +313,10 @@ const otpverify = async (req, res) => {
     } else {
       res.render("user/otp", { userheadlink: true, message: "Wrong OTP" });
     }
+
+  
+    
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -323,7 +343,6 @@ const userhome = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -345,7 +364,6 @@ const getprofile = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -358,7 +376,6 @@ const editprofile = async (req, res) => {
       res.render("user/editprofile", { userheadlink: true, editprofile });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -379,7 +396,6 @@ const update = async (req, res) => {
       res.redirect("/profile");
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -395,7 +411,6 @@ const updateprofile = async (req, res) => {
       res.redirect("/profile");
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -439,7 +454,6 @@ const productlist = async (req, res) => {
       a[i] = j;
       i++;
     }
-    console.log(a);
     if (categoryview) {
       usersession = req.session.user_id;
 
@@ -454,7 +468,6 @@ const productlist = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -473,7 +486,6 @@ const singleview = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -510,7 +522,6 @@ const categoryview = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -538,7 +549,7 @@ const cartview = async (req, res) => {
         images: productid.images,
         tprice,
       }));
-      console.log(cartlist);
+
       const totalPrice = cartlist.reduce(
         (total, value) => total + value.tprice,
         0
@@ -565,7 +576,6 @@ const cartview = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -638,7 +648,6 @@ const addtocart = async (req, res) => {
       res.json({ status: false });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -646,9 +655,9 @@ const updatecart = async (req, res) => {
   try {
     const id = req.params.id;
     const quantity = parseInt(req.body.count);
-    console.log(quantity);
+
     usersession = req.session.user_id;
-    console.log(req.body.stock);
+
     if (quantity <= req.body.stock) {
       const productprice = await productdb.findOne({ _id: id });
       const kprice = productprice.price * quantity;
@@ -700,7 +709,6 @@ const updatecart = async (req, res) => {
       );
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -721,7 +729,6 @@ const deletesingle = async (req, res) => {
       res.json({ status: true });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -732,13 +739,13 @@ const getcheckout = async (req, res) => {
   try {
     usersession = req.session.user_id;
     const cartchecker = await cartdb.findOne({ user_id: usersession });
-    console.log(cartchecker.outstock);
+
     if (cartchecker.outstock) {
       res.redirect("/getcart");
     } else {
       const addressvalue = req.session.selectaddress;
       const coupen = req.session.coupen;
-      console.log(coupen);
+
 
       const cardlistvalue = await cartdb
         .find({ user_id: usersession })
@@ -880,7 +887,6 @@ const getcheckout = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -898,7 +904,6 @@ const selectadd = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -939,7 +944,6 @@ const postaddress = async (req, res) => {
 
     res.redirect("/selectadd");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -949,7 +953,6 @@ const selectone = async (req, res) => {
     req.session.selectaddress = req.body;
     res.redirect("/getcheckout");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -967,9 +970,7 @@ const payment = async (req, res) => {
           receipt: "asa",
         };
         instance.orders.create(options, function (err, order) {
-          if (err) {
-            console.log(err);
-          }
+         
           res.json({ status: "paypal", data: { order: order } });
         });
       } else if (paymentmethod == "COD") {
@@ -1019,7 +1020,6 @@ const payment = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1068,7 +1068,6 @@ const paymentverify = async (req, res) => {
       res.json({ staus: false });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1085,7 +1084,6 @@ const getcomplete = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1109,7 +1107,6 @@ const cancelpage = async (req, res) => {
       userfooter: true,
     });
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1150,7 +1147,6 @@ const getitem = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1187,7 +1183,6 @@ const cancelledcomplete = async (req, res) => {
 
     res.redirect("/procancel");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1214,7 +1209,6 @@ const cancelitem = async (req, res) => {
     );
     res.redirect("/viewitem");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1228,7 +1222,6 @@ const returnpro = async (req, res) => {
     );
     res.redirect("/procancel");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1271,19 +1264,18 @@ const postcoupen = async (req, res) => {
             }
           
         } else {
-          console.log("amount minnum...............");
+     
           res.json({ status: "min", data: "minnium is required" });
         }
       } else {
-        console.log("date...............");
+     
         res.json({ status: "notfound", data: "coupen expired" });
       }
     } else {
-      console.log("valued...............");
+
       res.json({ status: "notfound", data: "coupen expired" });
     }
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1300,7 +1292,6 @@ const getcontact =(req, res) => {
       userfooter: true,
     })
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1314,7 +1305,6 @@ const logout = (req, res) => {
 
     res.redirect("/");
   } catch (error) {
-    console.log(error);
     res.render("error");
   }
 };
@@ -1357,5 +1347,7 @@ module.exports = {
   postcoupen,
   returnpro,
   resendotp,
-  getcontact
+  getcontact,
+  forgetgetotp,
+  postforgetotp
 };

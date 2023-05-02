@@ -29,8 +29,10 @@ router.get('/resendotp',auth.userlogged,userController.resendotp)
 /* Forget Password */
 router.get('/getemail',userController.getemail)
 router.post('/postemail',userController.postemail)
-router.get('/verify',userController.getpassword)
+router.get('/verifypass',userController.getpassword)
 router.post('/postpass',userController.postconfirm)
+router.get('/forgetgetotp',userController.forgetgetotp)
+router.post('/forgetotpverify',userController.postforgetotp)
 
 
 /* List of product */
