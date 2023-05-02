@@ -43,7 +43,7 @@ app.use(session({secret:process.env.SESSION_SECRET_KEY,cookie:{maxAge:30000},res
 //     console.log("error in connection");
 // })
 
-mongoose.connect("mongodb+srv://afhamdunnurpp:Afham@98@cluster0.igpowov.mongodb.net/test")
+mongoose.connect("mongodb+srv://afhamdunnurpp:Afham%4098@cluster0.igpowov.mongodb.net/ecommerce")
 .then(()=>{
     console.log("connected");
 }).catch(()=>{
