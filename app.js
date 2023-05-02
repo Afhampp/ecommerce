@@ -36,13 +36,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session({secret:process.env.SESSION_SECRET_KEY,cookie:{maxAge:30000},resave:false, saveUninitialized:true}))
-mongoose.connect("mongodb://127.0.0.1:27017/ecommerce")
+// mongoose.connect("mongodb://127.0.0.1:27017/ecommerce")
+// .then(()=>{
+//     console.log("connected");
+// }).catch(()=>{
+//     console.log("error in connection");
+// })
+
+mongoose.connect("mongodb+srv://afhamdunnurpp:Afham@98@cluster0.igpowov.mongodb.net/test")
 .then(()=>{
     console.log("connected");
 }).catch(()=>{
     console.log("error in connection");
 })
-
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
