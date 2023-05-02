@@ -52,7 +52,6 @@ const getproduct=async(req,res)=>{
 const editproductpage=async(req,res)=>{
     try{
        const editproduct=await productdb.findById({_id:req.query.id}).populate("categories")
-       console.log(editproduct)
        
        if(editproduct){
         res.render('admin/producteditpage',{adminheadlink:true,adminheader:true,editproduct,adminfooter:true})
@@ -81,7 +80,6 @@ const editproduct=async(req,res)=>{
             }
             const categeries= await catogeriesdb.findOne({categories:req.body.categerioes})
             const showproduct=await productdb.findOneAndUpdate({_id:req.query.id},{$set: {name:req.body.name,brand:req.body.brand,price:req.body.price,quantity:req.body.quantity,description:req.body.description,categories:categeries._id}},{$push:{images:[file]}})
-            console.log(showproduct,"first")
             if(showproduct){
              res.redirect('/admin/showproduct')}
         }else if(req.files && req.files.length==2){ file = req.files.map((file) => file.filename);
@@ -92,14 +90,13 @@ const editproduct=async(req,res)=>{
             }
             const categeries= await catogeriesdb.findOne({categories:req.body.categerioes})
             const showproduct=await productdb.findOneAndUpdate({_id:req.query.id},{$set: {name:req.body.name,brand:req.body.brand,price:req.body.price,quantity:req.body.quantity,description:req.body.description,categories:categeries._id,images:file}})
-            console.log(showproduct,"secound")
             if(showproduct){
              res.redirect('/admin/showproduct')
             }
         }else{file = req.files.map((file) => file.filename);
                 const categeries= await catogeriesdb.findOne({categories:req.body.categerioes})
                 const showproduct=await productdb.findOneAndUpdate({_id:req.query.id},{$set: {name:req.body.name,brand:req.body.brand,price:req.body.price,quantity:req.body.quantity,description:req.body.description,categories:categeries._id,images:file}})
-                console.log(showproduct,"third")
+           
                 if(showproduct){
                  res.redirect('/admin/showproduct')
                 }}
@@ -107,7 +104,7 @@ const editproduct=async(req,res)=>{
         }else{
             const categeries= await catogeriesdb.findOne({categories:req.body.categerioes}) 
             const showproduct=await productdb.findOneAndUpdate({_id:req.query.id},{$set: {name:req.body.name,brand:req.body.brand,price:req.body.price,quantity:req.body.quantity,description:req.body.description,categories:categeries._id}})
-            console.log(showproduct,"secound")
+        
             if(showproduct){
              res.redirect('/admin/showproduct')
             }
@@ -159,7 +156,6 @@ const imagedelete=async (req,res)=>{
        
         const id=req.body.productId
         const image=req.body.image
-        console.log(id,image)
         const x=await productdb.findOneAndUpdate({_id:id},{$pull:{images:image}})
      
         res.json({status:true})
@@ -176,7 +172,6 @@ const addimage=async (req,res)=>{
        
         const id=req.body.productId
         const image=req.body.image
-        console.log(id,image)
         const x=await productdb.findOneAndUpdate({_id:id},{$pull:{images:image}})
      
         res.json({status:true})

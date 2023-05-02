@@ -50,7 +50,6 @@ const dashboard = async (req, res) => {
       res.json({status:true,sales})
     }
     else if(from){
-      console.log("kerii fromik")
       const fr=new Date(req.query.datefrom)
      
       const sales = await orderdb.find({ is_complete: true, date: { $gte: fr } }).sort({ date: -1 });
@@ -59,9 +58,9 @@ const dashboard = async (req, res) => {
       res.json({status:true,sales})
     }
     else if(to){
-      console.log("kerii toik")
+
       const t=new Date(req.query.dateto)
-      console.log(t)
+  
       const sales = await orderdb.find({ is_complete: true, date: { $lte: t } }).sort({ date: -1 });
       
       res.json({status:true,sales})
@@ -69,7 +68,7 @@ const dashboard = async (req, res) => {
       
     }
     else{
-      console.log("ithikaaa")
+   
       const sales = await orderdb.find({ is_complete: true }).sort({ date: -1 });
   
     const totalsales = await orderdb.find({ is_complete: true }).countDocuments()

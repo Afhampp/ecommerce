@@ -111,7 +111,6 @@ const postlogin = async (req, res) => {
   try {
     
     const logindata = await userdb.findOne({ email: req.body.email });
-    console.log(logindata.password)
     if (logindata) {
       const passlogin = await bcrypt.compare(
         req.body.password,
@@ -568,6 +567,7 @@ const cartview = async (req, res) => {
         userfooter: true,
       });
     } else {
+      const block =true
       res.render("user/cart", {
         userheadlink: true,
         userheader: true,
@@ -1076,6 +1076,7 @@ const getcomplete = async (req, res) => {
   try {
     const usersession = req.session.user_id;
     const x = await orderdb.findOne().sort({ date: -1 }).limit(1);
+    
     res.render("user/confirmation", {
       userheadlink: true,
       userheader: true,
@@ -1095,9 +1096,16 @@ const getcomplete = async (req, res) => {
 const cancelpage = async (req, res) => {
   try {
     const usersession = req.session.user_id;
-    const orderlist = await orderdb
+    const orderli = await orderdb
       .find({ user_id: usersession })
       .sort({ date: -1 });
+      const orderlist = orderli.map(order => {
+        const date = new Date(order.date);
+        const dateString = date.toLocaleString();
+        const address = order.address; // update address property
+const productinfo = order.productinfo; // update productinfo property
+return { ...order._doc, date: dateString, address, productinfo };
+      })
 
     res.render("user/cancelpro", {
       userheadlink: true,

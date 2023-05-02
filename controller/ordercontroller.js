@@ -8,7 +8,7 @@ const userdb=require('../model/usermodel')
 const getorder=async(req,res)=>{
     try{
         const orderli=await orderdb.find()
-        console.log(orderli)
+
         const orderlist = orderli.map(order => {
             const date = new Date(order.date);
             const dateString = date.toLocaleString();
@@ -16,7 +16,6 @@ const getorder=async(req,res)=>{
   const productinfo = order.productinfo; // update productinfo property
   return { ...order._doc, date: dateString, address, productinfo };
 });
-          console.log(orderlist)
         
         res.render('admin/adminorder',{adminheadlink:true,adminheader:true,orderlist,adminfooter:true})
     }
@@ -56,7 +55,7 @@ const cancelled=async(req,res)=>{
         const id=req.query.id
         await orderdb.findByIdAndUpdate({_id:id},{$set:{is_cancelled:true}})
         const x=await orderdb.find({_id:id}) 
-        console.log("ordercartcalue",x)
+
         const[{productinfo}]=x
         const productupdate=productinfo.map(({id,quantitypro})=>({
             id,
@@ -65,10 +64,9 @@ const cancelled=async(req,res)=>{
         }))
 
         for(const y of productupdate){
-            console.log(y.id)
-            console.log(y.quantitypro)
+  
            const products= await productdb.findByIdAndUpdate({_id:y.id},{$inc:{quantity:y.quantitypro}})
-            console.log("ith updated products",products);
+
         }
         const orders=await orderdb.findOne({_id:id})
         if(orders.paymentmethod=="online payment"){
@@ -90,13 +88,13 @@ const cancelleditem=async(req,res)=>{
         const orderid=req.session.adminorder
 
         const orders=await orderdb.findById({_id:orderid})
-        console.log(orders)
+
         const order = await orderdb.findOneAndUpdate(
             {_id: orderid, "productinfo._id": productid},
             {$set: {"productinfo.$.cancelitem": true}}
           
           );
-          console.log("order........",order);
+
           const y=await orderdb.aggregate([{$match:{_id:orders._id}},{$unwind:"$productinfo"},{$match:{"productinfo.id":productid}}])
 
           const [{productinfo}]=y
@@ -140,7 +138,6 @@ const accpetreturn=async(req,res)=>{
         const id=req.query.id
         const orderlist=await orderdb.findByIdAndUpdate({_id:id},{$set:{return:true}})
         const x=await orderdb.find({_id:id}) 
-        console.log("ordercartcalue",x)
         const[{productinfo}]=x
         const productupdate=productinfo.map(({id,quantitypro})=>({
             id,
@@ -149,8 +146,6 @@ const accpetreturn=async(req,res)=>{
         }))
 
         for(const y of productupdate){
-            console.log(y.id)
-            console.log(y.quantitypro)
            const products= await productdb.findByIdAndUpdate({_id:y.id},{$inc:{quantity:y.quantitypro}})
         }
         const finduser=orderlist.user_id

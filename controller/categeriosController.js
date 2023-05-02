@@ -44,7 +44,6 @@ const addcategories=async(req,res)=>{
 }
 const uploadcat=async(req,res)=>{
     try{
-            console.log(req.query.id);
             const findcaat= await categoriesdb.findByIdAndUpdate({_id:req.query.id},{$set:{categories:req.body.name}})
             if(findcaat){
                 res.redirect("/admin/categories")            

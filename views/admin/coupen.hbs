@@ -44,14 +44,14 @@
         <td>{{to}}</td>
         <td>{{discount}}</td>
        {{#if active}}
-        <td><a href="/admin/deactive?id={{_id}}" style="text-decoration: none;">Deactivate</a></td>
+        <td><a href="/admin/deactive?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-danger">Deactivate</button></a></td>
        <td>active</td>
        {{else}}
-       <td><a href="/admin/active?id={{_id}}" style="text-decoration: none;">Activate</a></td>
+       <td><a href="/admin/active?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">Activate</button></a></td>
        <td>expire</td>
        {{/if}}
-        <td><a href="/admin/editcoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">edit</button></a></td>
-         <td><a href="/admin/deletecoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-success">delete</button></a></td>
+        <td><a href="/admin/editcoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-primary">edit</button></a></td>
+         <td><a href="/admin/deletecoupen?id={{_id}}" style="text-decoration: none;"><button type="button" class="btn btn-danger">delete</button></a></td>
     </tr>
    {{/each}}
   </tbody>

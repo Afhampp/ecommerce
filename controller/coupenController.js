@@ -7,7 +7,6 @@ const coupenpage=async(req,res)=>{
         for(const x of added){
             if(x.to<new Date()){
                 const check=await coupendb.findOneAndUpdate({_id:x.id},{$set:{active:false}})
-                console.log(check)
             }
         }
         res.render('admin/coupen',{adminheadlink:true,adminheader:true,added,adminfooter:true})     

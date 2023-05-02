@@ -6,7 +6,6 @@ const getbannertable=async(req,res)=>{
     try{
        
             const getbanner= await bannerdb.find()
-            console.log(getbanner)
             if(getbanner){
                 res.render('admin/adminbanner',{adminheadlink:true,adminheader:true,getbanner,adminfooter:true})            
             }
@@ -29,7 +28,6 @@ const geteditbanner=async(req,res)=>{
 }
 const posteditbanner=async(req,res)=>{
     try{
-        console.log(req.file,req.body.heading)
           if(req.file) {
             await bannerdb.findOneAndUpdate({_id:req.query.id},{$set:{view:true,images:req.file.filename}})
         res.redirect('/admin/getbannerpage')  

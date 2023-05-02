@@ -13,7 +13,6 @@ const getwishlist = async (req, res) => {
       const stocks = [];
       for (const x of wishlist.products) {
         const stock = await productdb.findOne({ _id: x.product_id._id });
-        console.log(stock)
         stocks.push(stock)
       
       }
@@ -49,7 +48,6 @@ const getwishlist = async (req, res) => {
          }
          else{
           await wishdb.create([{user_id:usersession,products:{product_id:req.query.id}}])
-          console.log("created")
           res.json({status:true})
           
          }
