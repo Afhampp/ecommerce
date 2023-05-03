@@ -7,7 +7,17 @@ const wishdb=require('../model/wishlistmodel')
 //WISH LIST
 const getwishlist = async (req, res) => {
     try {
+     
       const usersession = req.session.user_id;
+      const username = req.session.name;
+
+      const checker = await wishdb.findOne({ 
+        user_id: usersession, 
+        'products.productid': { $exists: true } 
+    }).populate("products.productid");
+
+    if(checker){
+      const block=false
       const wishlist = await wishdb.findOne({ user_id: usersession }).populate("products.product_id");
      
       const stocks = [];
@@ -16,7 +26,14 @@ const getwishlist = async (req, res) => {
         stocks.push(stock)
       
       }
-        res.render('user/wishlist', { userheadlink: true, userheader: true,usersession,stocks, userfooter: true })
+        res.render('user/wishlist', { userheadlink: true, userheader: true,usersession,username,stocks,block, userfooter: true })
+    }else{
+
+      const block =true
+
+      res.render('user/wishlist', { userheadlink: true, userheader: true,usersession,username,block, userfooter: true })
+    }
+     
       
     }
     catch (error) {

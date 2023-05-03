@@ -1,6 +1,23 @@
 <section class="cart_area section_padding">
     <div class="container">
-      <div class="cart_inner">
+      <div class="cart_inner" style=" padding-left: 10rem;">
+        {{#if block}}
+      
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            
+            </thead>
+           
+            <tbody>
+               <img src="/images/95974e121862329.Y3JvcCw5MjIsNzIxLDAsMTM5.png">
+              
+            </tbody>
+          </table>
+          <div class="checkout_btn_inner float-right">
+            <a class="btn_1" href="/productlist">Continue Shopping</a>
+          </div>
+        {{else}}
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -42,13 +59,13 @@
               {{/each}}
               <tr class="bottom_button">
                 <td>
-                  <a class="btn_1">Update Cart</a>
+
                 </td>
                 <td></td>
                 <td></td>
                 <td>
                   <div class="cupon_text float-right">
-                    <a class="btn_1" href="#">Close Coupon</a>
+                   
                   </div>
                 </td>
               </tr>
@@ -76,6 +93,7 @@
             {{/if}}
             {{/with}}
           </div>
+          {{/if}}
         </div>
       </div>
   </section>

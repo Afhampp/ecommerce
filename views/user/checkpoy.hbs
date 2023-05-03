@@ -273,17 +273,17 @@ function formvalidatation(){
    
     
     if(emailregex.test(email.value)==false){
-        console.log(".com")
+
         emailerror.innerHTML="Invalid email"
         return false
     }
     else if(phone.value.length<10){
-        console.log("lenght indo")
+     
         phoneerror.innerHTML="required 10 digit number"
         return false
     }
     else if(zip.value===""|| zip.value===null){
-        console.log("zip kali anno")
+     
         pincodeerror.innerHTML="zip required"
         return false
     }

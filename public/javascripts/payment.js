@@ -66,6 +66,9 @@ $(document).ready(function() {
         else if(response.status=="non"){
           $("#error").html(response.data.msg)
         }
+        else if(response.status=="zero"){
+          $("#error").html(response.data.msg)
+        }
         else {
           $("#adress").html(response.data.msg)
         }

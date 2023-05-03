@@ -35,6 +35,7 @@ const postcoupen=async(req,res)=>{
             discount:discount
         }
         await coupendb.insertMany([data])
+        res.redirect('/admin/getcoupen')
           
     }
     catch(error){

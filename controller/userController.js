@@ -330,6 +330,8 @@ const userhome = async (req, res) => {
     const banner1 = await bannerdb.findOne().limit(1);
     const banner2 = await bannerdb.findOne().skip(1).limit(1);
     const banner3 = await bannerdb.findOne().skip(2).limit(1);
+    const findproduct= await productdb.find().limit(6)
+
    
     res.render("user/userhome", {
       userheadlink: true,
@@ -339,6 +341,7 @@ const userhome = async (req, res) => {
       banner1,
       banner2,
       banner3,
+      findproduct,
       userfooter: true,
     });
   } catch (error) {
@@ -352,12 +355,14 @@ const userhome = async (req, res) => {
 const getprofile = async (req, res) => {
   try {
     usersession = req.session.user_id;
+    const username = req.session.name;
     const details = await userdb.findById({ _id: req.session.user_id });
     if (details) {
       res.render("user/userprofile", {
         userheadlink: true,
         userheader: true,
         usersession,
+        username,
         details,
         userfooter: true,
       });
@@ -455,6 +460,7 @@ const productlist = async (req, res) => {
     }
     if (categoryview) {
       usersession = req.session.user_id;
+      const username = req.session.name;
 
       res.render("user/userproductlist", {
         userheadlink: true,
@@ -463,6 +469,7 @@ const productlist = async (req, res) => {
         catogeriesview,
         a,
         usersession,
+        username,
         userfooter: true,
       });
     }
@@ -477,10 +484,12 @@ const singleview = async (req, res) => {
   try {
     const catogeriesview = await productdb.findById({ _id: req.query.id });
     const usersession = req.session.user_id;
+    const username = req.session.name;
     res.render("user/usersingleview", {
       userheadlink: true,
       userheader: true,
       usersession,
+      username,
       catogeriesview,
       userfooter: true,
     });
@@ -500,6 +509,7 @@ const categoryview = async (req, res) => {
     }
     const limit = 2;
     const usersession = req.session.user_id;
+    const username = req.session.name;
     const categerioslist = await categoriesdb.find();
     const cat = await productdb.find({ categories: req.query.id}).limit(limit * 1)
     .skip((page - 1) * limit);
@@ -518,6 +528,7 @@ const categoryview = async (req, res) => {
       cat,
       a,
       usersession,
+      username,
       userfooter: true,
     });
   } catch (error) {
@@ -532,8 +543,14 @@ const cartview = async (req, res) => {
   try {
    
     const usersession = req.session.user_id;
-    const checkker = await cartdb.findOne({ user_id: usersession });
-    if (checkker) {
+    const username = req.session.name;
+    const checker = await cartdb.findOne({ 
+      user_id: usersession, 
+      'products.productid': { $exists: true } 
+  }).populate("products.productid");
+ 
+    if (checker) {
+      const block=false
       const getproduct = await cartdb
         .find({ user_id: usersession })
         .populate("products.productid");
@@ -561,17 +578,21 @@ const cartview = async (req, res) => {
         userheadlink: true,
         userheader: true,
         usersession,
+        username,
         cartlist,
         totalPrice,
-        checkker,
+        block,
         userfooter: true,
       });
     } else {
       const block =true
+
       res.render("user/cart", {
         userheadlink: true,
         userheader: true,
         usersession,
+        username,
+        block,
         userfooter: true,
       });
     }
@@ -738,6 +759,7 @@ const deletesingle = async (req, res) => {
 const getcheckout = async (req, res) => {
   try {
     usersession = req.session.user_id;
+    const username = req.session.name;
     const cartchecker = await cartdb.findOne({ user_id: usersession });
 
     if (cartchecker.outstock) {
@@ -782,12 +804,14 @@ const getcheckout = async (req, res) => {
             userheadlink: true,
             userheader: true,
             usersession,
+            username,
             addressvalue,
             list,
             cartvtotal,
             Total,
             listcoupen,
             newwallet,
+            wallet,
             userfooter: true,
           });
         } else {
@@ -812,6 +836,7 @@ const getcheckout = async (req, res) => {
             userheadlink: true,
             userheader: true,
             usersession,
+            username,
             addressvalue,
             list,
             cartvtotal,
@@ -845,6 +870,7 @@ const getcheckout = async (req, res) => {
             userheadlink: true,
             userheader: true,
             usersession,
+            username,
             addressvalue,
             list,
             cartvtotal,
@@ -875,6 +901,7 @@ const getcheckout = async (req, res) => {
             userheadlink: true,
             userheader: true,
             usersession,
+            username,
             addressvalue,
             list,
             cartvtotal,
@@ -893,6 +920,7 @@ const getcheckout = async (req, res) => {
 const selectadd = async (req, res) => {
   try {
     usersession = req.session.user_id;
+    const username = req.session.name;
     const y = await userdb.findOne({ _id: usersession });
     const address = y.address;
 
@@ -900,6 +928,7 @@ const selectadd = async (req, res) => {
       userheadlink: true,
       userheader: true,
       usersession,
+      username,
       address,
       userfooter: true,
     });
@@ -963,16 +992,23 @@ const payment = async (req, res) => {
     if (info) {
       const paymentmethod = req.body.radio;
       if (paymentmethod == "paypal") {
+
         const totalPrice = req.session.totalpayment;
-        var options = {
-          amount: totalPrice * 100,
-          currency: "INR",
-          receipt: "asa",
-        };
-        instance.orders.create(options, function (err, order) {
-         
-          res.json({ status: "paypal", data: { order: order } });
-        });
+
+        if(totalPrice==0){
+          res.json({ status: "zero", data: { msg: "Please click on cod as it is zero amount" } });
+        }else{
+          var options = {
+            amount: totalPrice * 100,
+            currency: "INR",
+            receipt: "asa",
+          };
+          instance.orders.create(options, function (err, order) {
+           
+            res.json({ status: "paypal", data: { order: order } });
+          });
+        }
+       
       } else if (paymentmethod == "COD") {
         const usersession = req.session.user_id;
         const wallet = req.session.wallet;
@@ -1075,12 +1111,14 @@ const paymentverify = async (req, res) => {
 const getcomplete = async (req, res) => {
   try {
     const usersession = req.session.user_id;
+    const username = req.session.name;
     const x = await orderdb.findOne().sort({ date: -1 }).limit(1);
     
     res.render("user/confirmation", {
       userheadlink: true,
       userheader: true,
       usersession,
+      username,
       x,
       userfooter: true,
     });
@@ -1096,21 +1134,24 @@ const getcomplete = async (req, res) => {
 const cancelpage = async (req, res) => {
   try {
     const usersession = req.session.user_id;
+    const username = req.session.name;
     const orderli = await orderdb
       .find({ user_id: usersession })
       .sort({ date: -1 });
       const orderlist = orderli.map(order => {
         const date = new Date(order.date);
         const dateString = date.toLocaleString();
+        const id=order.id
         const address = order.address; // update address property
 const productinfo = order.productinfo; // update productinfo property
-return { ...order._doc, date: dateString, address, productinfo };
+return { ...order._doc, date: dateString, address, productinfo,id };
       })
 
     res.render("user/cancelpro", {
       userheadlink: true,
       userheader: true,
       usersession,
+      username,
       orderlist,
       userfooter: true,
     });
@@ -1123,6 +1164,7 @@ const getitem = async (req, res) => {
     const orderid = req.query.id;
 
     const usersession = req.session.user_id;
+    const username = req.session.name;
 
     if (orderid) {
       req.session.orderid = orderid;
@@ -1136,6 +1178,7 @@ const getitem = async (req, res) => {
         userheadlink: true,
         userheader: true,
         usersession,
+        username,
         x,
         userfooter: true,
       });
@@ -1150,6 +1193,7 @@ const getitem = async (req, res) => {
         userheadlink: true,
         userheader: true,
         usersession,
+        username,
         x,
         userfooter: true,
       });
@@ -1248,7 +1292,7 @@ const postcoupen = async (req, res) => {
         if (x.min <= total) {
             const y = await coupendb.aggregate([
               { $unwind: "$user" },
-              { $match: { user: usersession } },
+              { $match: { coupencode: code } },
               { $project: { user: 1, _id: 0 } },
             ]);
             let found = null;
@@ -1258,10 +1302,8 @@ const postcoupen = async (req, res) => {
                 break;
               }
             }
+ 
             if (found === null) {
-              res.json({ status: "already", data: "already used" });
-              
-            } else {
               req.session.coupen = code;
               await coupendb.updateOne(
                 { coupencode: code },
@@ -1269,6 +1311,10 @@ const postcoupen = async (req, res) => {
               );
 
               res.json({ status: "found", data: "coupen is activated" });
+              
+            } else {
+           
+              res.json({ status: "already", data: "already used" });
             }
           
         } else {
@@ -1292,11 +1338,13 @@ const postcoupen = async (req, res) => {
 const getcontact =(req, res) => {
   try {
     const usersession=req.session.user_id
+    const username = req.session.name;
 
     res.render('user/contact', {
       userheadlink: true,
       userheader: true,
       usersession,
+      username,
       userfooter: true,
     })
   } catch (error) {

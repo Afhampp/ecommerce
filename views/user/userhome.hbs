@@ -54,8 +54,8 @@
                             <div class="col-lg-5 col-sm-6">
                                 <div class="single_product_content">
                                     <h5></h5>
-                                    <h2> <a href="/getcart">Best quality Watche</a> </h2>
-                                    <a href="/getcart" class="btn_3">Explore Now</a>
+                                    <h2> <a href="/productlist">Best quality Watche</a> </h2>
+                                    <a href="/productlist" class="btn_3">Explore Now</a>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +71,8 @@
                             <div class="col-lg-5 col-sm-6">
                                 <div class="single_product_content">
                                     <h5></h5>
-                                    <h2> <a href="/getcart">Best quality Watche</a> </h2>
-                                    <a href="/getcart" class="btn_3">Explore Now</a>
+                                    <h2> <a href="/productlist">Best quality Watche</a> </h2>
+                                    <a href="/productlist" class="btn_3">Explore Now</a>
                                 </div>
                             </div>
                         </div>
@@ -88,8 +88,8 @@
                             <div class="col-lg-5 col-sm-6">
                                 <div class="single_product_content">
                                     <h5></h5>
-                                    <h2> <a href="/getcart">Best quality Watche</a> </h2>
-                                    <a href="/getcart" class="btn_3">Explore Now</a>
+                                    <h2> <a href="/productlist">Best quality Watche</a> </h2>
+                                    <a href="/productlist" class="btn_3">Explore Now</a>
                                 </div>
                             </div>
                         </div>
@@ -112,52 +112,17 @@
                 </div>
             </div>
             <div class="row">
+                {{#each findproduct}}
                 <div class="col-lg-4 col-sm-6">
                     <div class="single_product_item">
                         <div class="single_product_item_thumb">
-                            <img src="/images/userimage/tranding_item/tranding_item_1.png" alt="#" class="img-fluid">
+                            <img src="/images/uploads/{{images.[0]}}" alt="#" class="img-fluid" style="height: 251px; width: 252px;">
                         </div>
-                        <h3> <a href="single-product.html">Cervical pillow for airplane
-                        car office nap pillow</a> </h3>
-                        <p>From $5</p>
+                        <h3> <a href="/productlist">{{name}}</a> </h3>
+                       
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="/images/userimage/tranding_item/tranding_item_2.png" alt="#" class="img-fluid">
-                        <h3> <a href="single-product.html">Foam filling cotton slow rebound pillows</a> </h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="/images/userimage/tranding_item/tranding_item_3.png" alt="#" class="img-fluid">
-                        <h3> <a href="single-product.html">Memory foam filling cotton Slow rebound pillows</a> </h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="/images/userimage/tranding_item/tranding_item_4.png" alt="#" class="img-fluid">
-                        <h3> <a href="single-product.html">Cervical pillow for airplane
-                        car office nap pillow</a> </h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="/images/userimage/tranding_item/tranding_item_5.png" alt="#" class="img-fluid">
-                        <h3> <a href="single-product.html">Foam filling cotton slow rebound pillows</a> </h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="/images/userimage/tranding_item/tranding_item_6.png" alt="#" class="img-fluid">
-                        <h3> <a href="single-product.html">Memory foam filling cotton Slow rebound pillows</a> </h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
+                {{/each}}
             </div>
         </div>
     </section>
