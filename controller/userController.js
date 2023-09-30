@@ -503,6 +503,11 @@ const singleview = async (req, res) => {
 
 const categoryview = async (req, res) => {
   try {
+    var search = "";
+    if (req.query.search) {
+      search = req.query.search;
+    }
+    console.log(search)
     var page = 1;
     if (req.query.page) {
       page = req.query.page;
@@ -511,9 +516,15 @@ const categoryview = async (req, res) => {
     const usersession = req.session.user_id;
     const username = req.session.name;
     const categerioslist = await categoriesdb.find();
-    const cat = await productdb.find({ categories: req.query.id}).limit(limit * 1)
+    console.log(req.query.id)
+    const cat = await productdb.find({ categories: req.query.id,$or: [
+      { name: { $regex: ".*" + search + ".*", $options: "i" } },
+      { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+    ]}).limit(limit * 1)
     .skip((page - 1) * limit);
+    console.log(cat)
     const count = await productdb.find({ categories: req.query.id}).countDocuments()
+    console.log(count)
     const totalpage = Math.ceil(count / limit);
     let a = [];
     let i = 0;
@@ -521,6 +532,7 @@ const categoryview = async (req, res) => {
       a[i] = j;
       i++;
     }
+    console.log('.......................')
     res.render("user/categeroyview", {
       userheadlink: true,
       userheader: true,
